@@ -12,35 +12,9 @@ import java.util.List;
 import com.entities.*;
 
 
-public class userdb {
+public class UserTable extends DataBase {
 	
-	//to connect the database
-	public static Connection connect(String userName,String password) {
-		Connection connection = null;
-		String url ="jdbc:postgresql://localhost:5432/FundManagement";
-		try {
-			Class.forName("org.postgresql.Driver");
-			connection = DriverManager.getConnection(url,userName,password);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
-	
-	//to disconnect from database
-	public static boolean disconnect(Connection connection) {
-		try {
-			if(connection != null) {
-				connection.close();
-				return true;
-			}
-			return false;
-		}catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
+
 	//return user data by or from user id
 	public User getById(Connection connection,long id) throws SQLException {
 		String query = "SELECT * FROM users WHERE id = " +id+ " LIMIT 1;";

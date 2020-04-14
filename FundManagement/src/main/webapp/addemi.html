@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Add EMI</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+<!---start style--->
+   
+<!---end style--->
+<!---start body--->
+    <body>
+    
+        <div>
+            <nav class=" navbar-inverse nav-text">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>               
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        
+                          <ul class="nav navbar-nav navbar-right">
+                            
+                            <li><a href="signin.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            <!--Page Header-->
+            <div class="page-header text-center">
+                <h1>Add EMI</h1>                
+            </div>
+            <div>
+               <form action="regi_form1.php" method="POST">              
+                    <!--new my name-->
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label for="membername">Member Name</label>
+                            <input class="form-control" id="membername" type="name" name="gid" placeholder="Enter Member Name*" required>
+                        </div>
+                    
+                        
+                       <div class="col-md-4">
+                            <label for="date">Date</label>
+                            <input class="form-control" id="date" type="date" name="date" placeholder="date">
+                        </div>
+                         <div class="form-group row">
+                        <div class="col-md-4">
+                            <label for="emi">EMI</label>
+                            <input class="form-control" id="emi" type="name" name="gid" placeholder="Enter EMI Amount*" required>
+                        </div> 
+                        
+                        <br><br>
+                    <div class="form-group row" style="padding-top: 50px;">
+
+                            <div class="col-md-3">
+                                
+                            </div>
+
+                            <div class="col-md-3">
+                                
+                                <button type="submit" name="emi" class="btn btn-primary btn-lg btn-block">Add EMI</button>
+                                    
+                            </div>
+                                
+                            <div class="col-md-3">
+
+                                <input type="reset" name="Reset" value="Clear" class="btn btn-info btn-lg btn-block">
+                            </div>
+
+                            <div class="col-md-3">
+                                
+                               
+                            </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Copyright
+    
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+    </body>
+<!---end body--->
+</html>

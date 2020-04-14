@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">    
+        <title>Log In</title>    
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+<!--start style-->
+    
+<!--end style-->
+<!--start body-->
+    <body>
+    <!--start header -->        
+        <div class="container-fluid jumbo-bg-color">
+           <h1 style="color: black;">Fund Management</h1>
+        </div>
+    <!--end header -->
+        <div>
+            <nav class=" navbar-inverse nav-text">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>               
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        
+                          <ul class="nav navbar-nav navbar-right">
+                            <li><a href="registration.html"><span class="glyphicon glyphicon-briefcase"></span> Register</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            <!--Page Header-->
+            <div class="page-header text-center">
+                <h1>Login</h1>                
+            </div>
+            <div>
+                <form action="php/login.php" method="POST">              
+                    <!--new my name-->
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-md-4"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <label for="mobile_number">Mobile Number</label>
+                            <input class="form-control" id="mobile_nuumber" type="text" name="mobile" placeholder="Enter Registerd Mobile Number*" required >
+                        </div>
+                        <div class="col-lg-4 col-md-4"></div>
+                    </div>
+                        
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-md-4"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">    
+                            <label for="password">Password</label>
+                            <input class="form-control" id="password" type="text" name="password" placeholder="Enter Password*" required >
+                        </div>
+                        <div class="col-lg-4 col-md-4"></div>
+                        </div>   
+                    <div>
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-md-4"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <button type="submit" name="login" id="login" class="btn btn-primary btn-lg btn-block">Login</button>       
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-md-4"></div>       
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <input type="reset" name="Reset" value="Clear" class="btn btn-info btn-lg btn-block">
+                        </div>  
+                        <div class="col-lg-4 col-md-4"></div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-md-4"></div>       
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <a href="registration.html" class="text-primary"><h4 class="text-center">Not Registerd!<samp>click</samp></h4></a>
+                        </div>  
+                        <div class="col-lg-4 col-md-4"></div>
+                    </div>        
+                </form>
+            </div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+<!---end body-->
+</html>

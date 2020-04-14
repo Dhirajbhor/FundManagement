@@ -15,7 +15,10 @@ public class User {
 	private String mobileNumber;
 	private String panCardNumber;
 	private String adharCardNumber;
-	
+	private String password;
+	private String key;
+	private boolean isDeleted;
+	private long groupId;
 	
 	
 	public User(long id, String firstName, String lastName, String address, String city, String dist, String state,
