@@ -13,12 +13,13 @@ public class GroupTable extends DataBase{
 	
 	//add groups details in the database;
 	public long addGroup(Connection connection,Group group) {
-		String query = "INSERT INTO groups(groupname,createddate) VALUES(?,?) RETURNING id;";
+		String query = "INSERT INTO groups(groupname,createddate,startamount) VALUES(?,?,?) RETURNING id;";
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
 			
 			statement.setString(1, group.getGroupName());
 			statement.setDate(2, group.getCreatedDate());
+			statement.setLong(3, group.getStartAmount());
 			
 			ResultSet result = statement.executeQuery();
 			if(result != null) {
@@ -77,7 +78,7 @@ public class GroupTable extends DataBase{
 	
 	//get group details by id
 	public Group getGroup(Connection connection,long id) {
-		String query = "SELECT * FROM groups WHERE id = " + id + " WHERE isdeleted = false LIMIT 1;";
+		String query = "SELECT * FROM groups WHERE id = " + id + " AND isdeleted = false LIMIT 1;";
 		try {
 			Statement statement = connection.createStatement();
 			

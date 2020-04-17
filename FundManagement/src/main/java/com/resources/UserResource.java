@@ -20,11 +20,16 @@ public class UserResource
 {
 	private UserDao dao;
 	
+	public UserResource() {
+		dao = new UserDao();
+	}
+	
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> getAll() throws SQLException 
 	{
-		dao = new UserDao();
+		
 		return dao.getAll();
 
 	}

@@ -5,10 +5,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class User {
 	private long id;
+	private String userName;
 	private String firstName;
 	private String lastName;
 	private String address;
-	private String city;
 	private String dist;
 	private String state;
 	private String emailId;
@@ -19,26 +19,135 @@ public class User {
 	private String key;
 	private boolean isDeleted;
 	private long groupId;
+	private int shares;
 	
 	
-	public User(long id, String firstName, String lastName, String address, String city, String dist, String state,
-			String emailId, String mobileNumber, String panCardNumber, String adharCardNumber) {
+	
+	
+	public User() {
+		super();
+		this.id = 0;
+		this.userName = null;
+		this.firstName = null;
+		this.lastName = null;
+		this.address = null;
+		this.dist = null;
+		this.state = null;
+		this.emailId = null;
+		this.mobileNumber = null;
+		this.panCardNumber = null;
+		this.adharCardNumber = null;
+		this.password = null;
+		this.key = null;
+		this.isDeleted = false;
+		this.groupId = 0;
+		this.shares = 0;
+	}
+
+
+	public User(long id, String userName, String firstName, String lastName, String address,String dist,
+			String state, String emailId, String mobileNumber, String panCardNumber, String adharCardNumber,
+			String password, String key, boolean isDeleted, long groupId,int shares) {
+		super();
 		this.id = id;
+		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
-		this.city = city;
 		this.dist = dist;
 		this.state = state;
 		this.emailId = emailId;
 		this.mobileNumber = mobileNumber;
 		this.panCardNumber = panCardNumber;
 		this.adharCardNumber = adharCardNumber;
+		this.password = password;
+		this.key = key;
+		this.isDeleted = isDeleted;
+		this.groupId = groupId;
+		this.shares = shares;
 	}
-		
-	public User() {
-		super();
+
+	
+	public int getShares() {
+		return shares;
 	}
+
+	public void setShares(int shares) {
+		this.shares = shares;
+	}
+
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @return the key
+	 */
+	public String getKey() {
+		return key;
+	}
+
+	/**
+	 * @param key the key to set
+	 */
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	/**
+	 * @return the isDeleted
+	 */
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	/**
+	 * @param isDeleted the isDeleted to set
+	 */
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	/**
+	 * @return the groupId
+	 */
+	public long getGroupId() {
+		return groupId;
+	}
+
+	/**
+	 * @param groupId the groupId to set
+	 */
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
+	}
+
+
 
 	/**
 	 * @return the id
@@ -88,18 +197,7 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	/**
-	 * @return the city
-	 */
-	public String getCity() {
-		return city;
-	}
-	/**
-	 * @param city the city to set
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
+	
 	/**
 	 * @return the dist
 	 */
@@ -175,9 +273,11 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
-				+ ", city=" + city + ", dist=" + dist + ", state=" + state + ", emailId=" + emailId + ", mobileNumber="
-				+ mobileNumber + ", panCardNumber=" + panCardNumber + ", adharCardNumber=" + adharCardNumber + "]";
+		return "User [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", address=" + address + ", dist=" + dist + ", state=" + state + ", emailId="
+				+ emailId + ", mobileNumber=" + mobileNumber + ", panCardNumber=" + panCardNumber + ", adharCardNumber="
+				+ adharCardNumber + ", password=" + password + ", key=" + key + ", isDeleted=" + isDeleted
+				+ ", groupId=" + groupId + ", shares=" + shares +"]";
 	}
 	
 	

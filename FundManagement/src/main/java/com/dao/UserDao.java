@@ -15,8 +15,8 @@ public class UserDao {
 	
 	public List<User> getAll() throws SQLException {
 		try {
-			
-			List<User> users = db.getAll(connection);
+			long groupId = 1;
+			List<User> users = db.getAll(connection,groupId);
 			return users;
 		}catch(Exception e) {
 			e.printStackTrace();

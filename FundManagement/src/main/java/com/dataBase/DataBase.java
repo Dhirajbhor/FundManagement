@@ -9,7 +9,7 @@ import com.entities.User;
 
 public abstract class DataBase {
 	
-	public  Connection connect() {
+	public static Connection connect() {
 		
 		//user name of the database and password
 		String userName = "postgres";
@@ -19,7 +19,7 @@ public abstract class DataBase {
 		Connection connection = null;
 		
 		// url of to connect postgres database by localhost and /last is database name.
-		String url ="jdbc:postgresql://localhost:5432/FundManagement";
+		String url ="jdbc:postgresql://localhost:5432/fundmanagement";
 		try {
 			//load the postgres driver int the project.
 			Class.forName("org.postgresql.Driver");

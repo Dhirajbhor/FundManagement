@@ -1,61 +1,74 @@
 package com.entities;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class UserSession {
-	private String id;
+	private long id;
 	private String tokan;
-	private String time;
+	private Date createdDate;
+	private Timestamp lastUpdated;
 	
-	public UserSession() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	
-	public UserSession(String id, String tokan, String time) {
+	
+	public UserSession(long id, String tokan, Date createdDate, Timestamp lastUpdated) {
 		super();
 		this.id = id;
 		this.tokan = tokan;
-		this.time = time;
+		this.createdDate = createdDate;
+		this.lastUpdated = lastUpdated;
 	}
-	@Override
-	public String toString() {
-		return "UserSession [id=" + id + ", tokan=" + tokan + ", time=" + time + "]";
+
+	public UserSession() {
+		super();
+		this.id = 0;
+		this.tokan = null;
+		this.createdDate = null;
+		this.lastUpdated = null;
 	}
-	/**
-	 * @return the id
-	 */
-	public String getId() {
+
+	public long getId() {
 		return id;
 	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
+
+	public void setId(long id) {
 		this.id = id;
 	}
-	/**
-	 * @return the tokan
-	 */
+
 	public String getTokan() {
 		return tokan;
 	}
-	/**
-	 * @param tokan the tokan to set
-	 */
+
 	public void setTokan(String tokan) {
 		this.tokan = tokan;
 	}
-	/**
-	 * @return the time
-	 */
-	public String getTime() {
-		return time;
+
+	public Date getCreatedDate() {
+		return createdDate;
 	}
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(String time) {
-		this.time = time;
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
+
+	public Timestamp getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(Timestamp lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
+	@Override
+	public String toString() {
+		return "UserSession [id=" + id + ", tokan=" + tokan + ", createdDate=" + createdDate + ", lastUpdated="
+				+ lastUpdated + "]";
+	}
+	
+	
 	
 	
 	

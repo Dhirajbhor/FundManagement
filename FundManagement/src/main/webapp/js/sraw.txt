@@ -1,0 +1,62 @@
+public Response register(
+			@FormParam("groupName") String groupName,
+			@FormParam("groupAmount")String startAmount,
+			@FormParam("userName")String userName,
+			@FormParam("shares")String shares,
+			@FormParam("firstName")String firstName,
+			@FormParam("lastName")String lastName,
+			@FormParam("address")String address,
+			@FormParam("state")String state,
+			@FormParam("dist")String dist,
+			@FormParam("mobileNumber")String mobileNumber,
+			@FormParam("emailid")String emailid,
+			@FormParam("password")String password,
+			@FormParam("adharCardNumber")String adharCardNumber,
+			@FormParam("panCardNumber")String panCardNumber
+			){
+	
+		try {
+		
+			Group group = new Group();
+			 group.setGroupName(groupName);
+			 group.setStartAmount(Long.parseLong(startAmount));
+			 
+			User user = new User();
+			 user.setUserName(userName);
+			 user.setShares(Integer.parseInt(shares));
+			 user.setFirstName(firstName);
+			 user.setLastName(lastName);
+			 user.setAddress(address);
+			 user.setState(state);
+			 user.setDist(dist);
+			 user.setMobileNumber(mobileNumber);
+			 user.setEmailId(emailid);
+			 user.setPassword(password);
+			 user.setAdharCardNumber(adharCardNumber);
+			 user.setPanCardNumber(panCardNumber);
+			 
+			 UserSession session = new UserSession();
+			  String tokan = ToolsDao.generateTokan();
+			  session.setTokan(tokan);
+			  session.setCreatedDate(group.getCreatedDate());
+			  
+			 // LoginRegisterController registerController = new LoginRegisterController();
+			  
+			  //long sessionId = registerController.register(group, user, session);
+			  
+			  System.out.println(user);
+			  System.out.println(group);
+			  System.out.println(session);
+		 
+
+		  
+//		  	if(sessionId > 0) {
+//				String sessionid = Long.toString(sessionId);
+//				return Response.ok().entity("Register Successsful").cookie(new NewCookie("fundloginTokan", tokan),new NewCookie("userId",sessionid)).build();
+//			}
+				return Response.ok().entity("Faild here").status(200).build();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return Response.ok().entity("Faild").status(200).build();
+		}
+	}
