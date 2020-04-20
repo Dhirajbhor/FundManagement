@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">    
         <title>Registration</title>    
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        
+        <link href="css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
 <!--start header -->    	
@@ -54,22 +54,35 @@
                     <div class="form-group row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label for="groupName">Group Name</label>
-w                            <input class="form-control" id="groupName" type="text" name="groupName" placeholder="Enter Group Name*" >
+                            <input class="form-control" id="groupName" type="text" name="groupName" placeholder="Enter Group Name*" >
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label for="groupAmount">Starting Amount</label>
-                            <input class="form-control" id="groupAmount" type="number" name="groupAmount" placeholder="rs.">
+                            <input class="form-control " name="groupAmount" id="groupAmount"   type="text" data-type="currency">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <label for="userName">User Name</label>
-                            <input class="form-control" id="userName" type="text" name="userName" placeholder="Enter Fist  Name*" >
+                            <input class="form-control" id="userName" type="text" name="userName" placeholder="Enter Fist  Name*" onchange="userValidate()">
+                        	<span id="userValidator"></span>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <label for="shares">Yours Shares</label>
-                            <input class="form-control" id="shares" type="number" name="shares" placeholder="Enter your shares*" >
+                            <div class=" row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <label for="shares">Yours Shares</label>
+                                    <input class="form-control" id="shares" type="number" name="shares" placeholder="Enter your shares*" onkeyup="showTotalAmount()" min="0">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <label for="">    </label>
+                                    <h4>=</h4>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <label for="totalAmount">Total</label>
+                                    <input class="form-control" name="totalAmount" id="totalShares" type="text" data-type="currency">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -87,7 +100,7 @@ w                            <input class="form-control" id="groupName" type="te
                     <div class="form-group row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <label for="address">Address</label>
-                            <input class="form-control" id="address" type="text" name="address" placeholder="House No., Name, Landmark, Streat" >
+                            <input class="form-control " id="address" type="text" name="address" placeholder="House No., Name, Landmark, Streat" >
                         </div>                        
                     </div>
 
@@ -114,33 +127,39 @@ w                            <input class="form-control" id="groupName" type="te
                     <div class="form-group row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">   
                             <label for="mobileNumber">Mobile No</label>
-                            <input class="form-control" id="mobileNumber" type="number" name="mobileNumber" placeholder="Mobile No" >
+                            <input class="form-control" id="mobileNumber" type="number" name="mobileNumber" placeholder="Mobile No" onchange="mobileNumberValidate()">
+                        	<span id="mobileNumberValidator"></span>
                         </div> 
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">                            
                             <label for="emailid">Email ID</label>
-                            <input class="form-control" id="emailid" type="email" name="emailid" placeholder="Email" >
+                            <input class="form-control" id="emailid" type="email" name="emailid" placeholder="Email" onchange="emailIdValidate()">
+                        	<span id="emailIdValidator"></span>
                         </div>                       
                     </div>
 
                     <div class="form-group row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">   
                             <label for="panCardNumber">Pan Card Number</label>
-                            <input class="form-control" id="panCardNumber" type="text" name="panCardNumber" placeholder="Pan Card Number" >
+                            <input class="form-control" id="panCardNumber" type="text" name="panCardNumber" placeholder="Pan Card Number" onchange="panCardValidate()">
+                        	<span id="panNumberValidator"></span>
                         </div> 
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">                            
                             <label for="adharCardNumber">Adhar Card Number</label>
-                            <input class="form-control" id="adharCardNumber" type="number" name="adharCardNumber" placeholder="Enter adhar card number" >
+                            <input class="form-control" id="adharCardNumber" type="number" name="adharCardNumber" placeholder="Enter adhar card number" onchange="adharCardValidate()">
+                        	<span id="adharNumberValidator"></span>
                         </div>                       
                     </div>
 
                     <div class="form-group row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">    
                             <label for="password">Password</label>
-                            <input class="form-control" id="password" type="password" name="password" placeholder="Enter Password*" >
+                            <input class="form-control" id="password" type="password" name="password" placeholder="Enter Password*" onchange="passwordValidate()" >
+                        	<span id="passwordValidator"></span>
                         </div> 
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">                            
                             <label for="confirm_password">Confirm Password</label>
-                            <input class="form-control" id="confirm_password" type="password" name="confirm_password" placeholder="Re-enter Password*" >
+                            <input class="form-control" id="confirmPassword" type="password" name="confirmPassword" placeholder="Re-enter Password*" onchange="confirmPasswordValidate()">
+                        	<span id="confirmPasswordValidator"></span>
                         </div>                       
                     </div>
 
@@ -170,6 +189,7 @@ w                            <input class="form-control" id="groupName" type="te
         <script src="js/notiflix-aio-2.1.3.js"></script>
         <script type="text/javascript" src="js/registerJs.js"></script>
         <script src="js/notiflix-aio-2.1.3.min.js"></script>
+        <script src="js/validator.js"></script>
 
         
 

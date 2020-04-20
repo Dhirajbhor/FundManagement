@@ -28,12 +28,17 @@ public class UserResource
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> getAll() throws SQLException 
-	{
-		
+	{	
 		return dao.getAll();
-
 	}
 	
+	@GET
+	@Path("/{groupId}/{userName}")
+	public boolean checkUser(@PathParam("groupId") long groupId,@PathParam("userName") String userName) throws SQLException{
+		UserDao ud = new UserDao();
+		return ud.isExist(userName);
+			
+	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

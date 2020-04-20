@@ -36,3 +36,20 @@
 .sticky + .content {
   padding-top: 60px;
 }
+
+input + span{
+  color: red;
+}
+
+input[type=text].grpupAmount {
+  background-image: url(http://i.imgur.com/Fd7NROx.png);
+  border: 1px solid #aaa;
+  padding: 5px;
+  padding-left: 20px;
+  background-size: 10px 15px;
+  background-repeat: no-repeat;
+  background-position: 8px 6px;
+}
+
+
+

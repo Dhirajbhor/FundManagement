@@ -12,5 +12,4 @@
                 }
             }
 
-            document.getElementById('to_date').valueAsDate = new Date();
 

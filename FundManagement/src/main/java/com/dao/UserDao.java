@@ -51,7 +51,6 @@ public class UserDao {
 	
 	public String update(User user) throws SQLException {
 		try {
-			connection = db.connect();
 			long id = db.update(connection, user);
 			if(!(id <= 0 ) && id == 1) {
 				return "success";
@@ -62,6 +61,23 @@ public class UserDao {
 			return "failed";
 		}
 	}
+	
+	public boolean isExist(String userName) {
+		try {
+			User user = db.getByName(connection, userName);
+			if(user != null) {
+				if(user.getUserName().equals(userName)) 
+				return true;
+			}
+				return false;
+				
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
 	
 	
 

@@ -1,11 +1,5 @@
 
-<?php
-    session_start();
-    $user_id = $_SESSION["USER_ID"];    
-    $tokan = $_SESSION["TOKAN"];
-    $group_name = $_SESSION["GROUP_NAME"];
 
-?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -22,9 +16,7 @@
         <div class="container-fluid navbar-inverse" style=" color:white;">
         <!-- get the group name;-->
         <h1 class=" text-center text-white">
-<?php
-    echo strtoupper($group_name); 
- ?> 
+
         </h1>         
         </div>
 <!--end header -->

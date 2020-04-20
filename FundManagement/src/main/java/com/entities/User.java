@@ -18,6 +18,7 @@ public class User {
 	private String password;
 	private String key;
 	private boolean isDeleted;
+	private boolean isAdmin;
 	private long groupId;
 	private int shares;
 	
@@ -42,12 +43,13 @@ public class User {
 		this.isDeleted = false;
 		this.groupId = 0;
 		this.shares = 0;
+		this.isAdmin = false;
 	}
 
 
 	public User(long id, String userName, String firstName, String lastName, String address,String dist,
 			String state, String emailId, String mobileNumber, String panCardNumber, String adharCardNumber,
-			String password, String key, boolean isDeleted, long groupId,int shares) {
+			String password, String key, boolean isDeleted, long groupId,int shares,boolean isAdmin) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -65,9 +67,22 @@ public class User {
 		this.isDeleted = isDeleted;
 		this.groupId = groupId;
 		this.shares = shares;
+		this.isAdmin = isAdmin;
 	}
+	
+	
 
 	
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+
 	public int getShares() {
 		return shares;
 	}
@@ -277,7 +292,7 @@ public class User {
 				+ ", address=" + address + ", dist=" + dist + ", state=" + state + ", emailId="
 				+ emailId + ", mobileNumber=" + mobileNumber + ", panCardNumber=" + panCardNumber + ", adharCardNumber="
 				+ adharCardNumber + ", password=" + password + ", key=" + key + ", isDeleted=" + isDeleted
-				+ ", groupId=" + groupId + ", shares=" + shares +"]";
+				+ ", groupId=" + groupId + ", shares=" + shares +", isAdmin " + isAdmin +"]";
 	}
 	
 	

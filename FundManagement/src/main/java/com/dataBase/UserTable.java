@@ -41,6 +41,7 @@ public class UserTable extends DataBase {
 				user.setKey(resultSet.getString("key"));
 				user.setGroupId(resultSet.getLong("groupid"));
 				user.setShares(resultSet.getInt("shares"));
+				user.setAdmin(resultSet.getBoolean("isadmin"));
 				
 				return user;
 			}
@@ -82,6 +83,7 @@ public class UserTable extends DataBase {
 					user.setDeleted(resultSet.getBoolean("isdeleted"));
 					user.setGroupId(resultSet.getLong("groupid"));
 					user.setShares(resultSet.getInt("shares"));
+					user.setAdmin(resultSet.getBoolean("isadmin"));
 					
 					users.add(user);
 				}
@@ -122,7 +124,8 @@ public class UserTable extends DataBase {
 				user.setDeleted(resultSet.getBoolean("isdeleted"));
 				user.setKey(resultSet.getString("key"));
 				user.setGroupId(resultSet.getInt("groupid"));
-			
+				user.setAdmin(resultSet.getBoolean("isadmin"));
+				
 				return user;
 			}
 			return null;
@@ -137,7 +140,7 @@ public class UserTable extends DataBase {
 		if(user == null) {
 			return Integer.MIN_VALUE;
 		}
-		String query = "INSERT INTO users(firstname,lastname,address,dist,state,mobilenumber,emailid,pancardnumber,adharcardnumber,password,key,groupid,username,shares) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id ;";
+		String query = "INSERT INTO users(firstname,lastname,address,dist,state,mobilenumber,emailid,pancardnumber,adharcardnumber,password,key,groupid,username,shares,isadmin) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id ;";
 		try {
 			
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -156,6 +159,7 @@ public class UserTable extends DataBase {
 			 statement.setLong(12,user.getGroupId());
 			 statement.setString(13,user.getUserName());
 			 statement.setInt(14,user.getShares());
+			 statement.setBoolean(15,user.isAdmin());
 			 
 			 ResultSet resultSet = statement.executeQuery();
 			 if(resultSet != null) {
@@ -175,7 +179,7 @@ public class UserTable extends DataBase {
 		if(connection == null || user == null) {
 			return Integer.MIN_VALUE;
 		}
-		String query = "UPDATE users SET firstname = ? ,lastname = ?,address = ?,dist = ?,state = ?,mobilenumber = ?,emailid = ?,pancardnumber = ?,adharcardnumber = ? WHERE id = "+ user.getId() +";";
+		String query = "UPDATE users SET firstname = ? ,lastname = ?,address = ?,dist = ?,state = ?,mobilenumber = ?,emailid = ?,pancardnumber = ?,adharcardnumber = ?,isadmin = ?  WHERE id = "+ user.getId() +";";
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setString(1,user.getFirstName());
@@ -187,6 +191,7 @@ public class UserTable extends DataBase {
 			statement.setString(7,user.getEmailId());
 			statement.setString(8,user.getPanCardNumber());
 			statement.setString(9,user.getAdharCardNumber());
+			statement.setBoolean(10,user.isAdmin());
 			
 			int result = statement.executeUpdate();
 			return result;
