@@ -14,7 +14,7 @@ import com.entities.*;
 
 
 @Path("loginRegister")
-public class RegisterResource {
+public class LoginRegisterResource {
 	
 	
 	//rest call register 
