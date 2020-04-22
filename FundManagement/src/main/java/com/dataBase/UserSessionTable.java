@@ -69,6 +69,17 @@ public class UserSessionTable extends DataBase {
 			return null;
 		}
 	}
+	
+	public boolean checkSession(Connection con,long id,String tokan) {
+		String dbTokan = this.getTokan(con, id);
+		if(dbTokan != null) {
+			if(tokan.equals(dbTokan)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 
 	

@@ -13,6 +13,10 @@ var imported1 = document.createElement('script');
 imported1.src = 'js/validator.js';
 document.head.appendChild(imported);
 
+var imported1 = document.createElement('script');
+imported1.src = 'js/ToolsJs.js';
+document.head.appendChild(imported);
+
 
 function registerForm() {
 	if(emailIdValidate() && passwordValidate() && panCardValidate() && adharCardValidate() && confirmPasswordValidate() && mobileNumberValidate() && isOkUser){
@@ -45,6 +49,7 @@ function registerForm() {
 					var groupName = response.groupName;
 					var groupId = response.groupId;
 					var userId = response.userId;
+					var groupAmount = response.groupAmount;
 					
 
 					//store session,useful data for next/future page 
@@ -53,6 +58,7 @@ function registerForm() {
 					sessionStorage.setItem("groupId",groupId);
 					sessionStorage.setItem("groupName",groupName);
 					sessionStorage.setItem("message",message);
+					sessionStorage.setItem("groupAmount",groupAmount);
 
 					//redirect page to dashboard.
 					location.href = "dashboard.html";
@@ -72,6 +78,7 @@ function registerForm() {
 		Notiflix.Notify.Info("please Filled details correctly");
 	} 
 }
+
 
 //function to covert from data into array
 function objectifyForm(formArray) {

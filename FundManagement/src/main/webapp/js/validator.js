@@ -148,3 +148,149 @@ function userValidate(){
     }
 }
 
+var isOkPanNumber = false;
+var isOkAdharNumber = false;
+var isOkMobileNumber = false;
+var isOkEmailId = false;
+
+
+function checkPanCardNumber(){
+    
+    if(panCardValidate()){
+
+        var position = document.getElementById('panCardNumber');
+        var message = document.getElementById('panNumberValidator');
+    
+        var input = position.value;
+
+        var xhttp = new XMLHttpRequest();
+	  
+	    xhttp.onreadystatechange = function(){
+	        if(this.readyState == 4 && this.status == 200){
+	            var response = xhttp.responseText;
+	            if(response == 'true'){
+	                message.innerHTML = "This Pan Card Number already registered";
+                    position.focus();
+                    isOkPanNumber =  false;
+	            }else if(response == 'false'){
+	            	message.innerHTML = "";
+                    isOkPanNumber = true;
+	            }
+	        }
+        }
+
+        var groupId = sessionStorage.getItem("groupId");
+	
+	    xhttp.open('GET','/FundManagement/fund/users/'+ groupId +"/checkPan/"+ input +" ",true);
+        xhttp.send();
+
+    }else{
+        isOkPanNumber = false;
+    }
+}
+
+function checkAdharCardNumber(){
+    
+    if(adharCardValidate()){
+        var position = document.getElementById('adharCardNumber');
+        var message = document.getElementById('adharNumberValidator');
+    
+        var input = position.value;
+
+        var xhttp = new XMLHttpRequest();
+	  
+	    xhttp.onreadystatechange = function(){
+	        if(this.readyState == 4 && this.status == 200){
+	            var response = xhttp.responseText;
+	            if(response == 'true'){
+	                message.innerHTML = "This Adhar Card Number already registered";
+                    position.focus();
+                    isOkAdharNumber =  false;
+	            }else if(response == 'false'){
+	            	message.innerHTML = "";
+                    isOkAdharNumber = true;
+	            }
+	        }
+        }
+
+        var groupId = sessionStorage.getItem("groupId");
+	
+	    xhttp.open('GET','/FundManagement/fund/users/'+ groupId +"/checkAdhar/"+ input +" ",true);
+        xhttp.send();
+
+    }else{
+        isOkAdharNumber = false;
+    }
+}
+
+
+function checkEmailId(){
+    
+    if(emailIdValidate()){
+
+        var position = document.getElementById('emailid');
+        var message = document.getElementById('emailIdValidator');
+        
+        var input = position.value;
+
+        var xhttp = new XMLHttpRequest();
+	  
+	    xhttp.onreadystatechange = function(){
+	        if(this.readyState == 4 && this.status == 200){
+	            var response = xhttp.responseText;
+	            if(response == 'true'){
+	                message.innerHTML = "This Email Id is already in Group";
+                    position.focus();
+                    isOkEmailId =  false;
+	            }else if(response == 'false'){
+	            	message.innerHTML = "";
+                    isOkEmailId = true;
+	            }
+	        }
+        }
+
+        var groupId = sessionStorage.getItem("groupId");
+	
+	    xhttp.open('GET','/FundManagement/fund/users/'+ groupId +"/checkEmail/"+ input +" ",true);
+        xhttp.send();
+
+    }else{
+        isOkEmailId = false;
+    }
+}
+
+function checkMobileNumber(){
+    
+    if(mobileNumberValidate()){
+
+        var position = document.getElementById('mobileNumber');
+        var message = document.getElementById('mobileNumberValidator');
+    
+        var input = position.value;
+
+        var xhttp = new XMLHttpRequest();
+	  
+	    xhttp.onreadystatechange = function(){
+	        if(this.readyState == 4 && this.status == 200){
+	            var response = xhttp.responseText;
+	            if(response == 'true'){
+	                message.innerHTML = "This Mobile Number already registered";
+                    position.focus();
+                    isOkMobileNumber =  false;
+	            }else if(response == 'false'){
+	            	message.innerHTML = "";
+                    isOkMobileNumber = true;
+	            }
+	        }
+        }
+
+        var groupId = sessionStorage.getItem("groupId");
+	
+	    xhttp.open('GET','/FundManagement/fund/users/'+ groupId +"/checkMobile/"+ input +" ",true);
+        xhttp.send();
+
+    }else{
+        isOkMobileNumber = false;
+    }
+}
+

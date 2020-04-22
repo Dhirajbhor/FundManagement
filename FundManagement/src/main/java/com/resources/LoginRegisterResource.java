@@ -2,6 +2,10 @@ package com.resources;
 
 import com.controller.*;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -9,6 +13,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.dao.ToolsDao;
+import com.dataBase.DataBase;
+import com.dataBase.GroupTable;
+import com.dataBase.UserSessionTable;
+import com.dataBase.UserTable;
 import com.entities.*;
 
 
@@ -73,8 +81,7 @@ public class LoginRegisterResource {
 			 //controller for register details passed all objects with deatils return inserted userid
 			 LoginRegisterController registerController = new LoginRegisterController();
 			  long userId = registerController.register(group, user, session);
-			  
-			  //long userId = -1;
+			  	
 			  
 			  
 			  
@@ -87,6 +94,7 @@ public class LoginRegisterResource {
 		  			response.put("userId", Long.toString(userId));
 		  			response.put("message","Register Successsful");
 		  			response.put("groupId",Long.toString(user.getGroupId()));
+		  			response.put("groupAmount",Long.toString(group.getStartAmount()));
 		  			
 		  			return response;
 		  		}
@@ -101,5 +109,87 @@ public class LoginRegisterResource {
 				return response;
 			}
 	}
-
+	
+	
+	@POST
+	@Path("/login")
+	@Produces(MediaType.APPLICATION_JSON)
+	public JSONObject login(String data) {
+		
+		JSONObject response = new JSONObject();
+		JSONParser jsp = new JSONParser();
+		JSONObject jso = null;
+		UserTable userDb = null;
+		UserSession userSession = null;
+		UserSessionTable sessionDb = null;
+		User user = null;
+		
+		try {
+			//geting all input Data.
+			jso = (JSONObject) jsp.parse(data);
+			String userName = (String) jso.get("userName");
+			String password = (String) jso.get("password");
+			String newDate =  (String) jso.get("todaysDate");
+			
+			Long date = Long.parseLong(newDate);
+			Timestamp currentDate = new Timestamp(date);
+			
+			
+			Connection con = DataBase.connect();
+			userDb = new UserTable();
+			user = userDb.getByName(con, userName);
+			if(user != null) {
+				boolean isValidPassword = ToolsDao.validatePassword(password, user.getPassword());
+				if(isValidPassword) {
+					String tokan = ToolsDao.generateTokan();
+					Long userId = user.getId();
+					Long groupId = user.getGroupId();
+					
+					userSession = new UserSession();
+					userSession.setId(userId);
+					userSession.setLastUpdated(currentDate);
+					userSession.setTokan(tokan);
+					
+					sessionDb = new UserSessionTable();
+					int id = sessionDb.updateSession(con, userSession);
+					response.put("tokan",tokan);
+					
+					if(id > 0) {
+						//getting group name.
+						GroupTable gt = new GroupTable();
+						Group group = gt.getGroup(con, groupId);
+						System.out.println(group.getStartAmount());
+						String groupName = group.getGroupName();
+						String groupAmount = Long.toString(group.getStartAmount());
+			  			
+						response.put("groupName", groupName);
+						response.put("userId", userId.toString());
+			  			response.put("message","Login Successsful");
+			  			response.put("groupId",groupId);
+			  			response.put("groupAmount",groupAmount);
+			  			
+			  			//System.out.println("here");
+			  			return response;
+					}else {
+						System.out.println("session not added");
+					}
+				}else {
+					System.out.println("password is wrong");
+				}
+			}else {
+				System.out.println("user not found");
+			}
+			
+			
+			
+			response.put("message","falid to login");
+			return response;
+		}catch(Exception e) {
+			e.printStackTrace();
+			response.put("message","falid to login");
+			return response;
+		}
+	}
+	
 }
+	

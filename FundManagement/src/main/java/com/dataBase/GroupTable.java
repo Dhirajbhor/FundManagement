@@ -37,7 +37,7 @@ public class GroupTable extends DataBase{
 	
 	//get the group details by group name
 	public String getGroupName(Connection connection,long id) {
-		String query = "SELECT groupname FROM groups WHERE id = "+ id +" WHERE isdeleted = false LIMIT 1;";
+		String query = "SELECT groupname FROM groups WHERE id = "+ id +" AND isdeleted = false LIMIT 1;";
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery(query);
@@ -90,6 +90,7 @@ public class GroupTable extends DataBase{
 				group.setId(result.getLong("id"));
 				group.setGroupName(result.getString("groupname"));
 				group.setCreatedDate(result.getDate("createddate"));
+				group.setStartAmount(result.getLong("startamount"));
 				
 				return group;
 			}

@@ -203,6 +203,113 @@ public class UserTable extends DataBase {
 		
 	}
 	
+	public boolean isExistEmailId(Connection con,long groupId,String emailId) {
+		if(con == null && groupId == 0 && emailId == null) {
+			return false;
+		}
+		try {
+			String query = "SELECT id FROM users WHERE groupid = " +groupId+" AND emailid = '"+emailId+"' LIMIT 1;";
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			if(rs.next()) {
+				long id = rs.getLong("id");
+				if(id > 0) {
+					return true;
+				}
+			}
+			return false;
+		}catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+		
+	}
+	
+	public boolean isExistAdharCardNumber(Connection con,long groupId,String adharCardNumber) {
+		if(con == null && groupId == 0 && adharCardNumber == null) {
+			return false;
+		}
+		try {
+			String query = "SELECT id FROM users WHERE groupid = " +groupId+" AND adharcardnumber = '"+adharCardNumber+"' LIMIT 1;";
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			if(rs.next()) {
+				long id = rs.getLong("id");
+				if(id > 0) {
+					return true;
+				}
+			}
+			return false;
+		}catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+		
+	}
+	
+	public boolean isExistPanCardNumber(Connection con,long groupId,String panCardNumber) {
+		if(con == null && groupId == 0 && panCardNumber == null) {
+			return false;
+		}
+		try {
+			String query = "SELECT id FROM users WHERE groupid = " +groupId+" AND pancardnumber = '"+panCardNumber+"' LIMIT 1;";
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			if(rs.next()) {
+				long id = rs.getLong("id");
+				if(id > 0) {
+					return true;
+				}
+			}
+			return false;
+		}catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+		
+	}
+	
+	public boolean isExistMobileNumber(Connection con,long groupId,String mobileNumber) {
+		if(con == null && groupId == 0 && mobileNumber == null) {
+			return false;
+		}
+		try {
+			String query = "SELECT id FROM users WHERE groupid = " +groupId+" AND mobilenumber = '"+mobileNumber+"' LIMIT 1;";
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			if(rs.next()) {
+				long id = rs.getLong("id");
+				if(id > 0) {
+					return true;
+				}
+			}
+			return false;
+		}catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+		
+	}
+	
+	public boolean isExistUser(Connection con,String userName) {
+		if(con == null && userName == null) {
+			return false;
+		}
+		
+		try {
+			User user = this.getByName(con, userName);
+			if(user.getUserName().equals(userName)) {
+				return true;
+			}
+			return false;
+		}catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+		
+	}
+	
+	
 
 	
 

@@ -44,13 +44,13 @@
                 <h1>Login</h1>                
             </div>
             <div>
-                <form action="php/login.php" method="POST">              
+                <form id="loginForm">              
                     <!--new my name-->
                     <div class="form-group row">
                         <div class="col-lg-4 col-md-4"></div>
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                            <label for="mobile_number">Mobile Number</label>
-                            <input class="form-control" id="mobile_nuumber" type="text" name="mobile" placeholder="Enter Registerd Mobile Number*" required >
+                            <label for="userName">User Name</label>
+                            <input class="form-control" id="userName" type="text" name="userName" placeholder="Enter Registerd User Name" onclick="changeDate();" >
                         </div>
                         <div class="col-lg-4 col-md-4"></div>
                     </div>
@@ -59,7 +59,8 @@
                         <div class="col-lg-4 col-md-4"></div>
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">    
                             <label for="password">Password</label>
-                            <input class="form-control" id="password" type="text" name="password" placeholder="Enter Password*" required >
+                            <input class="form-control" id="password" type="text" name="password" placeholder="Enter Password*">
+                        	<input type="text" id="todaysDate" name="todaysDate" hidden="true"> 
                         </div>
                         <div class="col-lg-4 col-md-4"></div>
                         </div>   
@@ -67,7 +68,7 @@
                     <div class="form-group row">
                         <div class="col-lg-4 col-md-4"></div>
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                            <button type="submit" name="login" id="login" class="btn btn-primary btn-lg btn-block">Login</button>       
+                            <button type="button" name="login" id="login" onclick="logIn()" class="btn btn-primary btn-lg btn-block">Login</button>       
                         </div>
                     </div> 
                     <div class="form-group row">
@@ -91,6 +92,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/ToolsJs.js"></script>
+        <script src="js/validator.js"></script>
+        <script src="js/notiflix-aio-2.1.3.min.js"></script>
+        <script src="js/notiflix-aio-2.1.3.js"></script>
+        <script src="js/loginJs.js"></script>
     </body>
 <!---end body-->
 </html>

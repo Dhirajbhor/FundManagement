@@ -1,0 +1,212 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Add Member</title>
+            <link href="css/bootstrap.min.css" rel="stylesheet">
+     
+        </head>
+        <body onload="printMessage();putGroupName()">
+<!--start header -->
+        <div class="container-fluid navbar-inverse" style=" color:white;">
+        <!-- get the group name;-->
+        <h1 class=" text-center text-white" id="groupName">
+        </h1>         
+        </div>
+<!--end header -->
+        <div>
+            <nav class=" navbar-inverse" style="font-size:15px;border-top:0.5px solid white;" id="navbar">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li class=""><a href="dashboard.php">Home</a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Member <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="update.php">Update</a></li>
+                                        <li><a href="#">Delete</a></li>
+                                        <li><a href="#">View</a></li>
+                                    </ul>
+                            </li>
+                           <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Savings <span class="caret"></span></a>
+                                    <ul class="dropdown-menu ">
+                                        <li><a href="addsavings.php">Add </a></li>
+                                        <li><a href="#">View </a></li>
+                                    </ul>
+                            </li>
+                            <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Get Loan<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Add EMI</a></li>
+                                        <li><a href="#">View EMI</a></li>
+                                        <li><a href="loand.php">New Loan</a></li>
+                                    </ul>
+                            </li>
+                            <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Total Collection<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Total Fund</a></li>
+                                        <li><a href="#">Total Loan</a></li>
+                                    </ul>
+                            </li>
+                          </ul>
+                          <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+<div class="container">
+            <!--Page Header-->
+            <div class="page-header text-center" id="page-header">
+                <h1>Add Member</h1>
+            </div>
+            <div>
+                <form  id="memberForm">              <!--new my name-->
+                    
+                      <div class="form-group row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label for="userName">User Name</label>
+                            <input class="form-control" id="userName" type="text" name="userName" placeholder="Enter user Name*" onchange="userValidate();changeDate();">
+                        	<span id="userValidator"></span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class=" row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <label for="shares">Yours Shares</label>
+                                    <input class="form-control" id="shares" type="number" name="shares" placeholder="Enter your shares*" onkeyup="showTotalAmount()" min="0">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <label for="">    </label>
+                                    <h4>=</h4>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <label for="totalAmount">Total</label>
+                                    <input class="form-control" name="totalAmount" id="totalShares" type="text" data-type="currency">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label for="firstName">First Name</label>
+                            <input class="form-control" id="firstName" type="text" name="firstName" placeholder="Enter Fist  Name*" >
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label for="lastName">Last Name</label>
+                            <input class="form-control" id="lastName" type="text" name="lastName" placeholder="Enter Last Name*" >
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label for="address">Address</label>
+                            <input class="form-control " id="address" type="text" name="address" placeholder="House No., Name, Landmark, Streat" >
+                        </div>                        
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label for="state">Select State</label>
+                            <select class="form-control" id="state" name="state">
+                                <option>Maharashtra</option>
+                                <option>Gujrat</option>
+                                <option>Kerla</option>
+                                <option>Karnataka</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label for="dist">Dist</label>
+                            <select class="form-control" id="dist" name="dist">
+                                <option>pune</option>
+                                <option>nashik</option>
+                                <option>nagpur</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">   
+                            <label for="mobileNumber">Mobile No</label>
+                            <input class="form-control" id="mobileNumber" type="number" name="mobileNumber" placeholder="Mobile No" onchange="checkMobileNumber()">
+                        	<span id="mobileNumberValidator"></span>
+                        </div> 
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">                            
+                            <label for="emailid">Email ID</label>
+                            <input class="form-control" id="emailid" type="email" name="emailid" placeholder="Email" onchange="checkEmailId()">
+                        	<span id="emailIdValidator"></span>
+                        </div>                       
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">   
+                            <label for="panCardNumber">Pan Card Number</label>
+                            <input class="form-control" id="panCardNumber" type="text" name="panCardNumber" placeholder="Pan Card Number" onchange="checkPanCardNumber()">
+                        	<span id="panNumberValidator"></span>
+                        </div> 
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">                            
+                            <label for="adharCardNumber">Adhar Card Number</label>
+                            <input class="form-control" id="adharCardNumber" type="number" name="adharCardNumber" placeholder="Enter adhar card number" onchange="checkAdharCardNumber()">
+                        	<span id="adharNumberValidator"></span>
+                        </div>                       
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">    
+                            <label for="password">Password</label>
+                            <input class="form-control" id="password" type="password" name="password" placeholder="Enter Password*" onchange="passwordValidate()" >
+                        	<span id="passwordValidator"></span>
+                        </div> 
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">                            
+                            <label for="confirm_password">Confirm Password</label>
+                            <input class="form-control" id="confirmPassword" type="password" name="confirmPassword" placeholder="Re-enter Password*" onchange="confirmPasswordValidate()">
+                            <input type="text" id="todaysDate" name="todaysDate" hidden="true"> 
+                        	<span id="confirmPasswordValidator"></span>
+                        </div>                       
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <button type="button" name="submit" id="register" onclick="addMember()" class="btn btn-primary btn-lg btn-block">Register</button><br>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <button type="Reset" name="reset"  class="btn btn-info btn-lg btn-block">Reset</button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <a href="signin.html" class="text-primary text-center"><h4>Already registered!</h4></a>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
+                    </div>
+                </form>
+            </div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <!-- js script -->
+        <script src="js/myjs.js"></script>
+        <script src="js/notiflix-aio-2.1.3.min.js"></script>
+        <script src="js/notiflix-aio-2.1.3.js"></script>
+        <script src="js/membersJs.js"></script>
+        <script src="js/validator.js"></script>
+        <script src="js/ToolsJs.js"></script>
+    </body>
+</html>
