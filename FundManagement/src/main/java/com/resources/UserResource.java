@@ -1,6 +1,7 @@
 package com.resources;
 import javax.ws.rs.Consumes;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dao.*;
@@ -27,15 +28,15 @@ import com.entities.UserSession;
 public class UserResource 
 {
 	private UserDao dao;
-	private UserTable db;
+	private UserTable userTable;
 	private Connection con;
-	private UserSessionTable sessionDb;
+	private UserSessionTable sessionTable;
 	
 	public UserResource() {
 		dao = new UserDao();
-		db = new UserTable();
+		userTable = new UserTable();
 		con = DataBase.connect();
-		sessionDb = new UserSessionTable();
+		sessionTable = new UserSessionTable();
 	}
 	
 	
@@ -49,31 +50,31 @@ public class UserResource
 	@GET
 	@Path("/{groupId}/{userName}")
 	public boolean checkUser(@PathParam("groupId") long groupId,@PathParam("userName") String userName) throws SQLException{
-		return db.isExistUser(con, userName);
+		return userTable.isExistUser(con, userName);
 	}
 	
 	@GET
 	@Path("/{groupId}/checkEmail/{emailid}")
 	public boolean checkEmailId(@PathParam("groupId") long groupId,@PathParam("emailid") String emailId) throws SQLException {
-		return db.isExistEmailId(con, groupId, emailId);
+		return userTable.isExistEmailId(con, groupId, emailId);
 	}
 	
 	@GET
 	@Path("/{groupId}/checkMobile/{mobilenumber}")
 	public boolean checkMobileNumber(@PathParam("groupId") long groupId,@PathParam("mobilenumber") String mobileNumber) throws SQLException {
-		return db.isExistMobileNumber(con, groupId, mobileNumber);
+		return userTable.isExistMobileNumber(con, groupId, mobileNumber);
 	}
 	
 	@GET
 	@Path("/{groupId}/checkAdhar/{adharcardnumber}")
 	public boolean checkAdharCardNumber(@PathParam("groupId") long groupId,@PathParam("adharcardnumber") String adharCardNumber) throws SQLException {
-		return db.isExistAdharCardNumber(con, groupId, adharCardNumber);
+		return userTable.isExistAdharCardNumber(con, groupId, adharCardNumber);
 	}
 	
 	@GET
 	@Path("/{groupId}/checkPan/{pancardnumber}")
 	public boolean checkPanCardNumber(@PathParam("groupId") long groupId,@PathParam("pancardnumber") String panCardNumber) throws SQLException {
-		return db.isExistPanCardNumber(con, groupId, panCardNumber);
+		return userTable.isExistPanCardNumber(con, groupId, panCardNumber);
 	}
 	
 	@POST 
@@ -84,7 +85,7 @@ public class UserResource
 			//if input is null then return failed;
 			if(data == null) {
 				return "Faild To Add";
-			}else if(!sessionDb.checkSession(con,Long.parseLong(userId), tokan)) {
+			}else if(!sessionTable.checkSession(con,Long.parseLong(userId), tokan)) {
 				return "Log Out";
 			}
 			
@@ -107,21 +108,22 @@ public class UserResource
 			 user.setDist((String) jso.get("dist"));
 			 user.setMobileNumber((String) jso.get("mobileNumber"));
 			 user.setEmailId((String) jso.get("emailid"));
-			 user.setPassword((String) jso.get("password"));
 			 user.setAdharCardNumber((String) jso.get("adharCardNumber"));
 			 user.setPanCardNumber((String) jso.get("panCardNumber"));
 			 user.setAdmin(false);
 			 user.setGroupId(Long.parseLong(groupId));
 			 
+			 String password = (String) jso.get("password");
+			 user.setPassword(ToolsDao.generatePassword(password));
 			 
 			 UserSession session = new UserSession();
 			  String gentokan = ToolsDao.generateTokan(); // genrate random string.
 			  session.setTokan(gentokan);
 			  session.setCreatedDate(todaysDate);
 			  
-			  long memberId = db.add(con, user);
+			  long memberId = userTable.add(con, user);
 			  session.setId(memberId);
-			  int id = sessionDb.addSession(con, session);
+			  int id = sessionTable.addSession(con, session);
 			  if(id > 0) {
 				  return "Member Added";
 			  }
@@ -133,6 +135,30 @@ public class UserResource
 			return "Faild To Add";
 		}
 	}
+	
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/{groupId}/{userId}/{tokan}/{userName}/getUserByName")
+	public List<User> getUsersByName(@PathParam("groupId")long groupId,@PathParam("userId")Long userId,@PathParam("tokan")String tokan,@PathParam("userName")String userName) {	
+		if(sessionTable.checkSession(con, userId, tokan)) {
+			List<User> users = userTable.getAll(con, groupId);
+			if(!userName.equals("all")) {
+				List<User> sortedUsers = new ArrayList<>();
+				for(User user : users) {
+					String fullName = user.getFirstName() + " " + user.getLastName();
+					if(fullName.equals(userName)) {
+						sortedUsers.add(user);
+					}
+				}
+				return sortedUsers;
+			}else {
+				return users;
+			}
+		}
+		return null;
+	}
+	
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

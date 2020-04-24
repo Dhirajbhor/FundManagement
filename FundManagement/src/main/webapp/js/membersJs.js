@@ -95,3 +95,48 @@ function showTotalAmount(){
 	
 	sharesTotal.value = `${answer}.00`;
 }
+
+
+
+function searchMember(){
+	var memberName = document.getElementById("memberId").value;
+	if(memberName == ""){
+		memberName = "all";
+	}
+	var viewMembersPosition = document.getElementById("viewMemberTable");
+	var xhttp = new XMLHttpRequest();
+
+		//rest call	
+		//when ajax is ready to send call or get response
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var userJson = xhttp.responseText;
+				var users = JSON.parse(userJson);
+				var groupAmount = sessionStorage.getItem("groupAmount");
+				let data = " ";
+				for(var index=0;index < users.length; index++){
+					var userName = users[index].firstName +' '+ users[index].lastName;
+					var shares = users[index].shares;
+					if(users[index].admin == true){
+						data +='<tr><td>'+(index+1)+'</td><td>'+users[index].userName+' <span class="glyphicon glyphicon-user"></span></td><td>'+ userName +'</td>';
+						data += '<td>'+ shares +' / '+ shares*groupAmount +'</td></tr>';
+					}else{
+						data +='<tr><td>'+(index+1)+'</td><td>'+users[index].userName+'</td><td>'+ userName +'</td>';
+						data += '<td>'+ shares +' / '+ shares*groupAmount +'</td></tr>';
+					}
+				}
+			 
+				viewMembersPosition.innerHTML = data;
+			}
+		};
+
+        var groupId = sessionStorage.getItem("groupId");
+        var userId = sessionStorage.getItem("userId");
+        var tokan = sessionStorage.getItem("tokan");
+
+		//rest url methods to send request	
+		xhttp.open('GET', '/FundManagement/fund/users/'+ groupId + "/"+ userId +"/" + tokan +"/"+ memberName +"/getUserByName",  true);
+		xhttp.send();
+
+	
+}

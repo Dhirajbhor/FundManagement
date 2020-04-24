@@ -54,7 +54,7 @@ public class UserTable extends DataBase {
 	}
 		
 	public List<User> getAll(Connection connection,long groupId) {
-		String query = "SELECT * FROM users WHERE isdeleted = FALSE AND groupid = "+ groupId +";";
+		String query = "SELECT * FROM users WHERE isdeleted = FALSE AND groupid = "+ groupId +" ORDER BY shares DESC;";
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);

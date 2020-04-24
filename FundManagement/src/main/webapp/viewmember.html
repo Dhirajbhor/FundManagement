@@ -1,19 +1,3 @@
-<?php
-    include "php/db_control.php";
-    require 'php/somefun.php';
-    session_start();
-
-    $db = new db_control();
-    $fun = new somefun();
-    $user_id = $_SESSION["USER_ID"];    
-    $tokan = $_SESSION["TOKAN"];
-    $group_name = $_SESSION["GROUP_NAME"];
-    $group_id = $_SESSION["GROUP_ID"];
-
-    $data = $db->get_data("name","members","user_id","$user_id AND group_id = $group_id AND is_deleted = false","",1);
-
-
-?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -25,14 +9,12 @@
             <link href="css/bootstrap.min.css" rel="stylesheet">
             <link href="css/styl.css" rel="stylesheet">
         </head>
-        <body>
+        <body onload="searchMember()">
 <!--start header -->
         <div class="container-fluid navbar-inverse" style=" color:white;">
         <!-- get the group name;-->
-        <h1 class=" text-center text-white">
-<?php
-    echo strtoupper($group_name); 
- ?> 
+        <h1 class=" text-center text-white" id="groupName">
+ 
         </h1>         
         </div>
 <!--end header -->
@@ -91,65 +73,41 @@
         <!--Page Header-->
                     <div class="container">
                     <div class="page-header text-center">
-                        <h1>Update Member's</h1>                
+                        <h1>Member's</h1>                
                     </div>
                 <!---end page header--->
 
         <!---search box--->
-           <form>
             <div class="container">
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search Member's">
+                        <input type="text" class="form-control" placeholder="Search Member's" id="memberId">
                         <div class="input-group-btn">
-                          <button class="btn btn-default" type="submit">
+                          <button class="btn btn-default" type="button" onclick="searchMember()">
                             <i class="glyphicon glyphicon-search"></i>
                           </button>
                         </div>
                       </div>
-                    </form><BR><BR>
                     </div>
-        <!---search box--->
-
-        <!--start data table-->
         <div class="container">
-
                             <div class="table-responsive">          
                               <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>UserName</th>
                                         <th>Member Name</th>
-                                        <th>Delete</th>
-                                        <th>Edit</th>
+                                        <th>Shares/Total Amount </th>
+                                       
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <?php
-                                $i=1;
-                                while ($rows = mysql_fetch_array($data)):
-                                    $Name = $rows['name'];
-                                    echo "<tr>";
-                                    echo "<td>$i</td>";
-                                    echo "<td>$Name</td>";
-                                    echo "<td><a href='#' class='btn btn-default btn-sm'>
-                                        <span class='glyphicon glyphicon-remove'></span> Delete 
-                                        </a></td>";
-                                    echo "<td><a href='#' class='btn btn-default btn-sm'>
-                                        <span class='glyphicon glyphicon-edit'></span> Edit 
-                                        </a></td>";
-                                    echo "</tr>";
-                                    $i++;
-                                 endwhile;
-
-                                ?>
+                                <tbody id="viewMemberTable">
+                                	
                                 </tbody>
                               </table>
                               </div>
                             </div>
                 </div>
-                <!--end data table-->
 
-                     </form>
                 </div>
 
 
@@ -178,6 +136,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
+        <!-- js script -->
         <script src="js/myjs.js"></script>
+        <script src="js/notiflix-aio-2.1.3.min.js"></script>
+        <script src="js/notiflix-aio-2.1.3.js"></script>
+        <script src="js/membersJs.js"></script>
+        <script src="js/validator.js"></script>
+        <script src="js/ToolsJs.js"></script>
     </body>
 </html>
