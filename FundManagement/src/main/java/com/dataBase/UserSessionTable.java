@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import com.entities.*;
 
@@ -80,7 +81,28 @@ public class UserSessionTable extends DataBase {
 		
 		return false;
 	}
-
+	
+	public boolean isUserFirstTime(Connection con,long id) {
+		String query = "SELECT lastupdated FROM usersession WHERE id ="+ id +" LIMIT 1;";
+		System.out.println(query);
+		try {
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			if (rs.next()) {
+				Timestamp stamp = rs.getTimestamp("lastupdated");
+				if(stamp != null) {
+					return false;
+				}
+				return true;
+			}
+				return true;
+		}catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
+	
+	
 
 	
 }

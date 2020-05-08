@@ -42,7 +42,6 @@ $(document).on('keyup', "input[data-type='currency']", function () {
   input[0].setSelectionRange(caret_pos, caret_pos);
   }
   
-  putGroupName();
   
 //function to covert from data into array
   function objectifyForm(formArray) {
@@ -66,5 +65,9 @@ $(document).on('keyup', "input[data-type='currency']", function () {
   
   function putGroupName(){
 	    var groupName = sessionStorage.getItem("groupName");
-	    document.getElementById('groupName').innerHTML = groupName;
+	    if(groupName != null){
+	    	document.getElementById('groupName').innerHTML = groupName;
+	    }
+	    
+	    
 	}

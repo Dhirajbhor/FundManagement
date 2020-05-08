@@ -309,6 +309,24 @@ public class UserTable extends DataBase {
 		
 	}
 	
+	public int updatePassword(Connection con,String password,long userId) {
+		String query = "UPDATE users SET password = ? WHERE id = ? ;";
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setString(1, password);
+			ps.setLong(2, userId);
+			
+			return ps.executeUpdate();
+			
+		}catch(Exception e) {
+			System.out.println(e);
+			return Integer.MIN_VALUE;
+		}
+		
+		
+		
+	}
+	
 	
 
 	

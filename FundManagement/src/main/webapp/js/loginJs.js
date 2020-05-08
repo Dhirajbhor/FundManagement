@@ -34,6 +34,9 @@ function logIn(){
 				// parse json response in js object
 				var response = JSON.parse(xhttp.responseText);
 				var message = response.message;
+				if(message == null){
+					console.log(message);
+				}
 				
 				//check response if successful then rediret
 				if(message == "Login Successsful"){
@@ -45,7 +48,6 @@ function logIn(){
 					var groupId = response.groupId;
 					var userId = response.userId;
 					var groupAmount = response.groupAmount;
-					console.log(groupAmount);
 
 					//store session,useful data for next/future page 
 					sessionStorage.setItem("tokan",tokan);
@@ -58,7 +60,27 @@ function logIn(){
 					//redirect page to dashboard.
 					location.href = "dashboard.html";
 				
-				}else{
+				}else if(message == "first time"){
+					
+					var groupName = response.groupName;
+					var groupId = response.groupId;
+					var userId = response.userId;
+					var groupAmount = response.groupAmount;
+					var userName = response.userName;
+
+					sessionStorage.setItem("userId",userId);
+					sessionStorage.setItem("groupId",groupId);
+					sessionStorage.setItem("groupName",groupName);
+					sessionStorage.setItem("message","Welcome");
+					sessionStorage.setItem("groupAmount",groupAmount);
+					sessionStorage.setItem("userName",userName);
+
+					//redirect page to dashboard.
+					location.href = "changepassword.html";
+				}
+				
+				
+				else{
 					//print when failed to register.
 					Notiflix.Notify.Failure(message);
 				}			
@@ -68,6 +90,53 @@ function logIn(){
         
         xhttp.open('POST', '/FundManagement/fund/loginRegister/login',  true);
 		xhttp.send(jsonData);
+}
+
+
+
+function addNewPassword(){
+	if(!confirmPasswordValidate() && !	passwordValidate()){
+		Notiflix.Notify.Info("please check your password");
+		return;
+	}
+	
+	var form = document.getElementById('changePasswordForm');
+	var formArray = objectifyForm(form);	
+	var jsonData = JSON.stringify(formArray);
+
+
+
+
+	var xhttp = new XMLHttpRequest();
+		
+	//rest call	
+	//when ajax is ready to send call or get response
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			
+			// parse json response in js object
+			var response = JSON.parse(xhttp.responseText);
+			var message = response.message;
+
+			if(message == "Successful"){
+				var tokan = response.tokan;
+				
+				sessionStorage.setItem("tokan",tokan);
+				sessionStorage.setItem("message",message);
+
+				location.href ="dashboard.html";
+			}else{
+				//print when failed to register.
+				Notiflix.Notify.Failure(message);
+			}
+
+		}
+	};
+	
+	var userId = sessionStorage.getItem("userId");
+	 
+	xhttp.open('POST', '/FundManagement/fund/loginRegister/changePassword/'+userId+'',  true);
+	xhttp.send(jsonData);
 }
 
 

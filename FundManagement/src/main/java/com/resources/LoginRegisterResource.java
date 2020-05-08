@@ -116,6 +116,7 @@ public class LoginRegisterResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public JSONObject login(String data) {
 		
+		
 		JSONObject response = new JSONObject();
 		JSONParser jsp = new JSONParser();
 		JSONObject jso = null;
@@ -142,31 +143,50 @@ public class LoginRegisterResource {
 				boolean isValidPassword = ToolsDao.validatePassword(password, user.getPassword());
 				if(isValidPassword) {
 					String tokan = ToolsDao.generateTokan();
+					
 					Long userId = user.getId();
 					Long groupId = user.getGroupId();
 					
+					sessionDb = new UserSessionTable();
+					
+					
+					
+					GroupTable gt = new GroupTable();
+					Group group = gt.getGroup(con, groupId);
+					System.out.println(group.getStartAmount());
+					String groupName = group.getGroupName();
+					String groupAmount = Long.toString(group.getStartAmount());
+					
+					
+					response.put("groupName", groupName);
+					response.put("userId", userId.toString());
+					response.put("groupId",groupId);
+		  			response.put("groupAmount",groupAmount);
+		  			response.put("userName",user.getUserName());
+					
+					if(sessionDb.isUserFirstTime(con,userId)) {
+						System.out.println("here");
+						response.put("message","first time");
+						return response;
+					}
+					
+					
+					
+					
 					userSession = new UserSession();
+					
 					userSession.setId(userId);
 					userSession.setLastUpdated(currentDate);
 					userSession.setTokan(tokan);
 					
-					sessionDb = new UserSessionTable();
+					
 					int id = sessionDb.updateSession(con, userSession);
 					response.put("tokan",tokan);
 					
 					if(id > 0) {
 						//getting group name.
-						GroupTable gt = new GroupTable();
-						Group group = gt.getGroup(con, groupId);
-						System.out.println(group.getStartAmount());
-						String groupName = group.getGroupName();
-						String groupAmount = Long.toString(group.getStartAmount());
-			  			
-						response.put("groupName", groupName);
-						response.put("userId", userId.toString());
 			  			response.put("message","Login Successsful");
-			  			response.put("groupId",groupId);
-			  			response.put("groupAmount",groupAmount);
+			  			
 			  			
 			  			//System.out.println("here");
 			  			return response;
@@ -180,8 +200,6 @@ public class LoginRegisterResource {
 				System.out.println("user not found");
 			}
 			
-			
-			
 			response.put("message","falid to login");
 			return response;
 		}catch(Exception e) {
@@ -191,5 +209,59 @@ public class LoginRegisterResource {
 		}
 	}
 	
+	@POST
+	@Path("changePassword/{userId}")
+	public JSONObject changePassword(@PathParam("userId")long userId,String data) {		
+		JSONObject response = new JSONObject();
+		JSONParser jsp = new JSONParser();
+		JSONObject jso = null;
+		UserSession userSession = null;
+		UserSessionTable sessionDb = null;
+		UserTable userDb = null;
+		try {
+			//geting all input Data.
+			jso = (JSONObject) jsp.parse(data);
+			String password = ToolsDao.generatePassword((String) jso.get("password"));
+			String newDate =  (String) jso.get("todaysDate");
+			String tokan = ToolsDao.generateTokan();
+			
+			Long date = Long.parseLong(newDate);
+			Timestamp currentDate = new Timestamp(date);
+			
+			Connection con = DataBase.connect();
+			
+			userDb = new UserTable();
+			int id = userDb.updatePassword(con, password, userId);
+			
+			if(id > 0) {
+			
+				userSession = new UserSession();
+				sessionDb = new UserSessionTable();
+				userSession.setId(userId);
+				userSession.setLastUpdated(currentDate);
+				userSession.setTokan(tokan);
+			
+				id = sessionDb.updateSession(con, userSession);
+				
+				if(id > 0) {
+					response.put("tokan",tokan);
+					response.put("message","Successful");
+					return response;
+				}
+			}
+			
+			response.put("message","falid");
+			return response;
+			
+		}catch(Exception e) {
+			System.out.println(e);
+			response.put("message","falid");
+			return response;
+		}
+	}
+	
 }
+
+
+
 	
