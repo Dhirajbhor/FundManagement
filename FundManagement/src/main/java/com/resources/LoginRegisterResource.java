@@ -153,7 +153,6 @@ public class LoginRegisterResource {
 					
 					GroupTable gt = new GroupTable();
 					Group group = gt.getGroup(con, groupId);
-					System.out.println(group.getStartAmount());
 					String groupName = group.getGroupName();
 					String groupAmount = Long.toString(group.getStartAmount());
 					
@@ -165,7 +164,6 @@ public class LoginRegisterResource {
 		  			response.put("userName",user.getUserName());
 					
 					if(sessionDb.isUserFirstTime(con,userId)) {
-						System.out.println("here");
 						response.put("message","first time");
 						return response;
 					}
@@ -186,21 +184,17 @@ public class LoginRegisterResource {
 					if(id > 0) {
 						//getting group name.
 			  			response.put("message","Login Successsful");
-			  			
-			  			
-			  			//System.out.println("here");
 			  			return response;
 					}else {
-						System.out.println("session not added");
+						response.put("message","falid to login");
 					}
 				}else {
-					System.out.println("password is wrong");
+					response.put("message","Invalid Password");
 				}
 			}else {
-				System.out.println("user not found");
+				response.put("message","Invalid UserId");
 			}
-			
-			response.put("message","falid to login");
+				
 			return response;
 		}catch(Exception e) {
 			e.printStackTrace();

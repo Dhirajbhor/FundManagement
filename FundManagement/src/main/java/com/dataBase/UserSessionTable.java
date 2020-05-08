@@ -84,7 +84,6 @@ public class UserSessionTable extends DataBase {
 	
 	public boolean isUserFirstTime(Connection con,long id) {
 		String query = "SELECT lastupdated FROM usersession WHERE id ="+ id +" LIMIT 1;";
-		System.out.println(query);
 		try {
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(query);

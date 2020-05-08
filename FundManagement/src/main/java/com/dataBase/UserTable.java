@@ -313,7 +313,7 @@ public class UserTable extends DataBase {
 		String query = "UPDATE users SET password = ? WHERE id = ? ;";
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
-			ps.setString(1, password);
+			ps.setString(1, password);	
 			ps.setLong(2, userId);
 			
 			return ps.executeUpdate();
@@ -322,9 +322,6 @@ public class UserTable extends DataBase {
 			System.out.println(e);
 			return Integer.MIN_VALUE;
 		}
-		
-		
-		
 	}
 	
 	
